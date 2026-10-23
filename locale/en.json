@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Think & Tool Strip",
+    "description": "Strip historical reasoning blocks and oversized tool results out of the model context, archiving the originals to disk with a searchable index; reasoning keeps one summary line, tool results keep a head/tail preview. Two per-session switches sit left of the chat input and toggle independently."
+  }
+}

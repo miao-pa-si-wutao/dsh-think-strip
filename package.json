@@ -1,0 +1,68 @@
+{
+  "name": "dsh-think-strip",
+  "version": "0.2.1",
+  "description": "Strip historical reasoning blocks and oversized tool outputs out of DeepSeek Harness context; archive the originals to disk with a searchable index and leave one-line stubs behind. Two per-session switches (thinking / tools).",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "reasoning",
+    "thinking",
+    "tool-result",
+    "context",
+    "archive",
+    "token-saving",
+    "prompt-cache"
+  ],
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "author": "miao-pa-si-wutao",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miao-pa-si-wutao/dsh-think-strip.git"
+  },
+  "homepage": "https://github.com/miao-pa-si-wutao/dsh-think-strip#readme",
+  "bugs": {
+    "url": "https://github.com/miao-pa-si-wutao/dsh-think-strip/issues"
+  },
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client.js",
+    "locale",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.2.1-rc.1 <0.3.0"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.5",
+    "@deepseek-ai/dsh-session": ">=0.2.1-rc.1 <0.3.0",
+    "@deepseek-ai/schemastery": "^3.18.0"
+  }
+}

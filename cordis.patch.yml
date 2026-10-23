@@ -1,0 +1,7 @@
+# dsh-think-strip bundle patch.
+#
+# 把插件行插到 profile 根层。后续层（或用户自己的 cordis.patch.yml）可以按 id
+# 覆盖配置，最后写入者生效。
+- insert:
+    - id: dsh-think-strip
+      name: 'dsh-think-strip'
