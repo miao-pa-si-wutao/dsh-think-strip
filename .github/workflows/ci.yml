@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.os }} / node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: ['22.x']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # The pure layer imports nothing outside node: builtins, so there is
+      # deliberately no install step. If that ever stops being true, add one.
+      - name: Version info
+        run: node --version
+
+      - name: Run pure-layer tests
+        run: npm test
+
+      - name: Syntax-check every source file
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in lib/index.js lib/pure.js client.js; do
+            node --check "$f"
+            echo "ok $f"
+          done
+
+      - name: Validate locale files are well-formed
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in locale/*.json cordis.patch.yml; do
+            case "$f" in
+              *.json) node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" && echo "ok $f" ;;
+            esac
+          done
+
+      - name: Check package.json exports and declared files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e '
+            const fs = require("fs");
+            const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+            const missing = [];
+            const check = (p) => { if (!fs.existsSync(p)) missing.push(p); };
+            if (pkg.main) check(pkg.main);
+            for (const [k, v] of Object.entries(pkg.exports ?? {})) {
+              for (const t of [v].flat()) {
+                if (typeof t === "string" && !t.includes("*")) check(t);
+              }
+            }
+            if (missing.length) {
+              console.error("missing:", missing.join(", "));
+              process.exit(1);
+            }
+            console.log("exports ok:", Object.keys(pkg.exports ?? {}).join(", "));
+          '

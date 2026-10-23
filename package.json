@@ -27,6 +27,9 @@
   "bugs": {
     "url": "https://github.com/miao-pa-si-wutao/dsh-think-strip/issues"
   },
+  "scripts": {
+    "test": "node --test test/pure.test.mjs"
+  },
   "exports": {
     ".": {
       "default": "./lib/index.js"

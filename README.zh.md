@@ -1,5 +1,8 @@
 # dsh-think-strip
 
+[![CI](https://github.com/miao-pa-si-wutao/dsh-think-strip/actions/workflows/ci.yml/badge.svg)](https://github.com/miao-pa-si-wutao/dsh-think-strip/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 > [English](README.md) · **中文**
 
 把历史里的**思考（reasoning）块**和**过长的工具输出**从模型上下文中剥离，原文按时间戳归档到磁盘并建可检索索引：思考每处留一行摘要，工具结果留「头 1200 字 + 尾 400 字」预览 + 归档路径。

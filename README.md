@@ -1,5 +1,8 @@
 # dsh-think-strip
 
+[![CI](https://github.com/miao-pa-si-wutao/dsh-think-strip/actions/workflows/ci.yml/badge.svg)](https://github.com/miao-pa-si-wutao/dsh-think-strip/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **Keep DeepSeek Harness conversations alive for hundreds of turns without paying for the same reasoning text twice.**
 
 This plugin strips historical **reasoning blocks** and **oversized tool outputs** out of the model's context. Originals are archived to disk by timestamp with a searchable index; in their place the model sees a one-line summary (for reasoning) or a head/tail preview plus the archive path (for tool results).
